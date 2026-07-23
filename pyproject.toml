@@ -1,0 +1,173 @@
+[project]
+name = "pluginlake-ehds-demo"
+version = "0.1.0"
+description = "EHDS demo project for pluginlake: OMOP and FHIR code locations, toolkits, and routers."
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Yannick Vinkesteijn" },
+    { name = "Tim Hendriks" },
+    { name = "Marlou van de Sande" },
+]
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "pluginlake>=0.1.0,<0.2.0",
+    "dagster>=1.13.1",
+    "duckdb>=1.4.4",
+    "fastapi>=0.128.7",
+    "polars>=1.38.1",
+    "pyarrow>=23.0.1",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.9.1",
+    "python-multipart>=0.0.27",
+    "plugin-rosetta",
+]
+
+# Single registration surface: core discovers this manifest and mounts the
+# project's contributions uniformly (ADR-009).
+[project.entry-points."pluginlake.projects"]
+ehds-demo = "ehds_demo.manifest:manifest"
+
+[project.urls]
+Homepage = "https://github.com/plugin-healthcare/pluginlake-ehds-demo"
+Repository = "https://github.com/plugin-healthcare/pluginlake-ehds-demo"
+Issues = "https://github.com/plugin-healthcare/pluginlake-ehds-demo/issues"
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ehds_demo"
+module-root = "src"
+
+# pluginlake (core) is co-developed and not yet published; reference it from the
+# sibling checkout. Switch to a released version or git rev once core is tagged.
+# plugin-rosetta mirrors core's pinned FHIR translation engine.
+[tool.uv.sources]
+pluginlake = { path = "../pluginlake", editable = true }
+plugin-rosetta = { git = "https://github.com/plugin-healthcare/plugin-rosetta", rev = "c08aa5ce47f72a3030ac14d877f28d2de49711c3" }
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    { include-group = "lint" },
+    { include-group = "test" },
+]
+lint = [
+    "ruff>=0.15.0",
+    "ty>=0.0.15",
+]
+test = [
+    "pytest>=9.0.3",
+    "pytest-cov>=6.0.0",
+]
+
+# --- Tool Configuration ---
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",
+    "ISC001",
+    "D203",
+    "D213",
+    "E501",
+    "TD002",
+    "TD003",
+    "FIX002",
+    "TRY003",
+    "SIM102",
+    "SIM108",
+]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["ehds_demo"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "S101",
+    "S608",
+    "D100",
+    "D103",
+    "D104",
+    "ANN",
+    "INP001",
+    "PLR2004",
+    "PLR0913",
+    "SLF001",
+    "ARG001",
+    "PLC0415",
+    "ASYNC240",
+]
+"src/ehds_demo/omop/queries.py" = [
+    "PLR0913",
+    "S608",
+]
+"notebooks/*.py" = [
+    "INP001",
+    "E402",
+    "F401",
+    "F403",
+    "T201",
+    "S101",
+    "D100",
+    "D103",
+    "ANN",
+    "EM102",
+    "PLC0415",
+    "N803",
+    "N806",
+    "PLR0913",
+    "ARG001",
+]
+"notebooks/**/*.py" = [
+    "N807",
+    "D415",
+    "W293",
+    "DTZ005",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "-q",
+    "--strict-config",
+    "--strict-markers",
+    "--import-mode=importlib",
+]
+xfail_strict = true
+
+[tool.ty]
+
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.ty.rules]
+unused-ignore-comment = "warn"
+invalid-return-type = "error"
+invalid-argument-type = "error"
+division-by-zero = "error"
+redundant-cast = "warn"
+invalid-method-override = "warn"
