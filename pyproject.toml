@@ -22,6 +22,7 @@ dependencies = [
     "pydantic-settings>=2.9.1",
     "python-multipart>=0.0.27",
     "plugin-rosetta",
+    "marimo>=0.23.14",
 ]
 
 # Single registration surface: core discovers this manifest and mounts the
