@@ -35,7 +35,8 @@ def _(mo):
 def _():
 
     import marimo as mo
-    from pluginlake.utils.testdata import find_repo_root
+
+    from ehds_demo.testdata import find_repo_root
 
     PROJECT_ROOT = find_repo_root()
     from ehds_demo.omop.loader import load_vocabulary_dataset

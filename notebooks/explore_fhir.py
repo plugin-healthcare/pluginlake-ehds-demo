@@ -35,17 +35,17 @@ def _():
 
     import marimo as mo
     import polars as pl
-    from pluginlake.utils.testdata import find_repo_root
+
+    from ehds_demo.testdata import find_repo_root
 
     PROJECT_ROOT = find_repo_root()
-    from pluginlake.utils.testdata import ensure_synthea_fhir_ndjson
-
     from ehds_demo.fhir.loader import load_fhir_dataset, load_fhir_ndjson
     from ehds_demo.fhir.translator_registry import (
         FHIR_RESOURCE_TYPES,
         FHIR_TO_OMOP_TABLE,
         get_translator,
     )
+    from ehds_demo.testdata import ensure_synthea_fhir_ndjson
 
     return (
         FHIR_RESOURCE_TYPES,

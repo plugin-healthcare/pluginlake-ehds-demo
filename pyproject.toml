@@ -21,7 +21,7 @@ dependencies = [
     "pydantic>=2.12.5",
     "pydantic-settings>=2.9.1",
     "python-multipart>=0.0.27",
-    "plugin-rosetta",
+    "plugin-rosetta @ git+https://github.com/plugin-healthcare/plugin-rosetta@c08aa5ce47f72a3030ac14d877f28d2de49711c3",
     "marimo>=0.23.14",
 ]
 
@@ -45,10 +45,10 @@ module-root = "src"
 
 # pluginlake (core) is co-developed and not yet published; reference it from the
 # sibling checkout. Switch to a released version or git rev once core is tagged.
-# plugin-rosetta mirrors core's pinned FHIR translation engine.
+# plugin-rosetta is pinned via a direct URL dependency above (PEP 508) so both
+# `uv sync` and `uv pip install` (used by the deploy entrypoint) resolve it.
 [tool.uv.sources]
 pluginlake = { path = "../pluginlake", editable = true }
-plugin-rosetta = { git = "https://github.com/plugin-healthcare/plugin-rosetta", rev = "c08aa5ce47f72a3030ac14d877f28d2de49711c3" }
 
 [dependency-groups]
 dev = [
@@ -63,6 +63,10 @@ lint = [
 test = [
     "pytest>=9.0.3",
     "pytest-cov>=6.0.0",
+]
+docs = [
+    "mkdocstrings[python]>=1.0.3",
+    "zensical>=0.0.21",
 ]
 
 # --- Tool Configuration ---

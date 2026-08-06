@@ -12,7 +12,7 @@ app = marimo.App()
 
 @app.cell
 def _():
-    from pluginlake.utils.testdata import ensure_synthea1k, ensure_synthea_fhir_ndjson, find_repo_root
+    from ehds_demo.testdata import ensure_synthea1k, ensure_synthea_fhir_ndjson, find_repo_root
 
     PROJECT_ROOT = find_repo_root()
     FHIR_DIR = ensure_synthea_fhir_ndjson(project_root=PROJECT_ROOT)

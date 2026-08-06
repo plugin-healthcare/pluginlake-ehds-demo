@@ -37,10 +37,11 @@ def _():
 
     import httpx
     import marimo as mo
-    from pluginlake.utils.testdata import ensure_synthea1k
+
+    from ehds_demo.testdata import ensure_synthea1k
 
     API_BASE = "http://localhost:8000/api/v1"
-    from pluginlake.utils.testdata import find_repo_root
+    from ehds_demo.testdata import find_repo_root
 
     PROJECT_ROOT = find_repo_root()
 

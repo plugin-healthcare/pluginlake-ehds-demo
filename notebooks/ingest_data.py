@@ -45,7 +45,8 @@ def _():
 
     import httpx
     import marimo as mo
-    from pluginlake.utils.testdata import (
+
+    from ehds_demo.testdata import (
         ensure_synthea1k,
         ensure_synthea_fhir_ndjson,
         find_repo_root,

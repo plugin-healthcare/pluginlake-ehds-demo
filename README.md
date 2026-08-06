@@ -32,3 +32,16 @@ uv run pytest
 `pluginlake` (core) is co-developed from the sibling `../pluginlake` checkout
 (see `[tool.uv.sources]`). The `plugin-rosetta` FHIR translation engine is
 pinned to the same revision core uses.
+
+## Documentation
+
+Domain reference docs (OMOP and FHIR toolkits) live in `docs/` and are built
+with [zensical](https://github.com/plugin-healthcare/pluginlake) + mkdocstrings:
+
+```bash
+uv sync --group docs
+uv run zensical serve   # http://localhost:8000
+```
+
+For how this project is onboarded and deployed onto a pluginlake station, see
+the core "Deploying a Station" guide.
