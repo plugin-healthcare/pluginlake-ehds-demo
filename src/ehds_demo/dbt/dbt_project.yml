@@ -1,0 +1,7 @@
+name: ehds_demo
+version: '1.0'
+config-version: 2
+profile: ehds_demo
+models:
+  ehds_demo:
+    +materialized: table

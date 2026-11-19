@@ -1,0 +1,19 @@
+version: 2
+sources:
+  - name: omop
+    database: ducklake
+    schema: omop
+    tables:
+      - name: person
+models:
+  - name: patients_by_birth_year
+    description: Distinct synthetic patients per recorded year of birth.
+    config:
+      meta:
+        dagster:
+          asset_key: [ehds_demo, patients_by_birth_year]
+    columns:
+      - name: birth_year
+        data_tests: [unique]
+      - name: patient_count
+        data_tests: [not_null]

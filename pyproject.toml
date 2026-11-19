@@ -21,8 +21,11 @@ dependencies = [
     "pydantic>=2.12.5",
     "pydantic-settings>=2.9.1",
     "python-multipart>=0.0.27",
-    "plugin-rosetta @ git+https://github.com/plugin-healthcare/plugin-rosetta@c08aa5ce47f72a3030ac14d877f28d2de49711c3",
+    "plugin-rosetta @ git+https://github.com/plugin-healthcare/linkml-rosetta@c08aa5ce47f72a3030ac14d877f28d2de49711c3",
     "marimo>=0.23.14",
+    "dagster-dbt>=0.29.1,<0.30",
+    "dbt-duckdb>=1.10.1,<1.12",
+    "dbt-core>=1.10,<1.12",
 ]
 
 # Single registration surface: core discovers this manifest and mounts the
